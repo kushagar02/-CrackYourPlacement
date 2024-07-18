@@ -1,0 +1,16 @@
+def Possible(a, b, n, k):
+    a.sort()
+    b.sort()
+    for i in range(n):
+        if (a[i] + b[i] == k):
+            return True
+    return False
+a = [1, 2, 3]
+b = [13, 10, 11]
+k = 14
+n = len(a)
+
+if(Possible(a, b, n, k)):
+    print("YES")
+else:
+    print("NO")
