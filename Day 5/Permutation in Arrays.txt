@@ -1,0 +1,17 @@
+class Solution:
+    def isPossible(self,a, b, n, k):
+    # Your code goes here
+    # def isPossible(a, b, n, k):
+    a.sort()
+    b.sort()
+    for i in range(n):
+        if (a[i] + b[i] == k):
+            return True
+    return False
+# k = 14
+n = len(a)
+
+if(isPossible(a, b, n, k)):
+    print("YES")
+else:
+    print("NO")
