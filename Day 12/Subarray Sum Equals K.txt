@@ -1,0 +1,14 @@
+class Solution:
+    def subarraySum(self, nums, k):
+        count = 0
+        sum_dict = {0: 1}
+        total_sum = 0
+        for num in nums:
+            total_sum += num
+            if total_sum - k in sum_dict:
+                count += sum_dict[total_sum - k]
+            if total_sum in sum_dict:
+                sum_dict[total_sum] += 1
+            else:
+                sum_dict[total_sum] = 1
+        return count
