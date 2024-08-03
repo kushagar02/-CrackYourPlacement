@@ -1,0 +1,21 @@
+class Solution {
+public:
+   
+   void solve(TreeNode* root, int& sum, bool isLeft) {
+    if(root == nullptr) return;
+
+  if(root -> left == nullptr && root -> right == nullptr) {
+       if(isLeft) sum += root -> val;
+    }
+    solve(root -> left, sum, true);
+    solve(root-> right, sum, false);
+   }
+
+    int sumOfLeftLeaves(TreeNode* root) {
+        int sum = 0;
+        bool isLeft = false;
+       solve(root, sum, isLeft);
+       return sum;
+
+    }
+};
