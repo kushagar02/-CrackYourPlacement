@@ -1,0 +1,36 @@
+class Solution
+{
+    public:
+    Node* rev(Node* head){
+        Node*curr = head, *prev = NULL, *next;
+        while(curr != NULL){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+    Node *compute(Node *head)
+    {
+        // your code goes here
+        head = rev(head);
+        Node* curr = head;
+        int max = head->data;
+        Node* prev = head;
+        while(head != NULL){
+            if(head->data >= max){
+                max = head->data;
+                prev = head;
+                head = head->next;
+            }
+            else{
+                prev->next = head->next;
+                head = prev->next;
+            }
+        }
+        head = rev(curr);
+        return head;
+    }
+    
+};

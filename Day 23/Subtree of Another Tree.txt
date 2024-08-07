@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool checkif(TreeNode* root, TreeNode* subroot){
+        if(root == NULL && subroot == NULL)
+            return true;
+        if(root == NULL || subroot == NULL)
+            return false;
+        if(root->val != subroot->val)
+            return false;
+            return checkif(root->left, subroot->left) && checkif(root->right, subroot->right);
+    }
+    bool isSubtree(TreeNode* root, TreeNode* subroot) {
+        if(root == NULL || subroot == NULL)
+            return false;
+        if(checkif(root,subroot))
+            return true;
+        return isSubtree(root->left, subroot) || isSubtree(root->right, subroot);
+    }
+};
