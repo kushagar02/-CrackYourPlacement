@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> a(nums.begin(), nums.end());
+        
+        sort(a.begin(), a.end());
+        unordered_map<int, int> hm;
+        for (int i = 0; i < n; i++) {
+            hm[a[i]] = i;
+        }
+        
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            while (hm[nums[i]] != i) {
+                count++;
+                swap(nums, hm[nums[i]], i);
+            }
+        }
+        return count;
+    }
+    
+    static void swap(vector<int>& a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+};
