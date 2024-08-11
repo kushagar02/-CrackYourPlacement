@@ -1,0 +1,29 @@
+class twoStacks {
+  public:
+    int s[100];
+    int top1=-1;
+    int top2=100;
+    twoStacks() {}
+    void push1(int x) {
+        s[++top1]=x;
+    }
+    void push2(int x) {
+        s[--top2]=x;
+    }
+    int pop1() {
+        if(top1==-1){
+            return -1;
+        }
+        else{
+            return s[top1--];
+        }
+    }
+    int pop2() {
+        if(top2==100){
+            return -1;
+        }
+        else{
+            return s[top2++];
+        }
+    }
+};
