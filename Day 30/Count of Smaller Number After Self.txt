@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> countSmaller(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> result(n, 0);
+        vector<int> sortedNums;
+
+        for (int i = n - 1; i >= 0; i--) {
+            auto it = lower_bound(sortedNums.begin(), sortedNums.end(), nums[i]);
+            result[i] = distance(sortedNums.begin(), it);
+            sortedNums.insert(it, nums[i]);
+        }
+
+        return result;
+    }
+};
