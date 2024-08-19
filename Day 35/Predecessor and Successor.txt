@@ -1,0 +1,33 @@
+class Solution
+{
+    public:
+    void in(Node* root,vector<int>&v){
+        if(!root){
+            return ;
+        }
+        in(root->left,v);
+        v.push_back(root->key);
+        in(root->right,v);
+    }
+    void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+        // Your code goes here
+        vector<int>v;
+        in(root,v);
+        int ind=lower_bound(v.begin(),v.end(),key)-v.begin();
+        pre=NULL;
+        if(ind-1>=0){
+            pre=new Node(v[ind-1]);
+        }
+        suc=NULL;
+        if(ind<v.size()&&v[ind]!=key){
+            suc=new Node(v[ind]);
+        }
+        else{
+            if(ind+1<v.size()){
+                suc=new Node(v[ind+1]);
+            }
+        }
+        
+    }
+};
