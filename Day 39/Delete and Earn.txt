@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums, int n = 10001) {
+        vector<int> sum(n);
+        for(int num: nums) 
+            sum[num] += num;
+        
+        int prev2 = 0, prev1 = sum[1];
+        for(int i = 2; i < n; i++) {
+            int temp = max(prev2 + sum[i], prev1);
+            prev2 = prev1, prev1 = temp;
+        } return prev1;
+    }
+};
