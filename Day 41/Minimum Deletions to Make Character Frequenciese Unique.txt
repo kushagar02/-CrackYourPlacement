@@ -1,0 +1,21 @@
+class Solution {
+public:
+    	int minDeletions(string s) {
+        int ans = 0;
+        vector<int> mpp(26,0);
+        for(int i=0;i<s.size();++i){
+            mpp[s[i]-'a']+=1;
+        }
+        sort(mpp.begin(),mpp.end());
+        int mf = mpp[25];
+        for(int i=25;~i;--i){
+            if(mpp[i]==0){break;}
+            if(mpp[i]>mf){
+                if(mf>=0){ans+=mpp[i]-mf;}
+                else{ans+=mpp[i];}
+            }
+            mf = min(mf,mpp[i])-1;
+        }
+        return ans;
+    }
+};

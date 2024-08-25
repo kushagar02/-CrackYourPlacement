@@ -1,0 +1,32 @@
+
+class Solution{
+public:
+    bool solve(int i,int N, int arr[],vector<vector<int>> &dp,int target) {
+        if(i >= N || target < 0) {
+            return 0;
+        }    
+        if(target == 0) {
+            return 1;
+        }
+        if(dp[i][target] != -1) {
+            return dp[i][target];
+        }
+        bool include = solve(i+1,N,arr,dp,target-arr[i]);
+        bool exclude = solve(i+1,N,arr,dp,target);
+        
+        return dp[i][target] = (include || exclude);
+    }
+    
+    int equalPartition(int N, int arr[]) {
+        int sum = 0;
+        for(int i=0;i<N;i++) {
+            sum += arr[i];
+        }
+        if(sum%2 != 0) {
+            return 0;
+        }
+        sum = sum/2;
+        vector<vector<int>> dp(N,vector<int>(sum+1,-1));
+        return solve(0,N,arr,dp,sum);
+    }
+};

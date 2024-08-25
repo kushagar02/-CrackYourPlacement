@@ -1,0 +1,23 @@
+class Solution {
+    int dfs(int mask, int i, int n, vector<int> &nums) {
+        if(mask == (1 << n) - 1) return 1;
+
+        int ans = 0;
+        for(int j=0; j<n; j++) {
+            if((mask & (1 << j)) == 0 && (nums[j] % i == 0 || i % nums[j] == 0)) {
+                mask |= 1 << j;
+                ans += dfs(mask, i + 1, n, nums);
+                mask &= ~(1 << j);
+            }
+        }
+        return ans;
+    }
+public:
+    int countArrangement(int n) {
+        vector<int> nums;
+        for(int i=1; i<=n; i++) nums.push_back(i);
+
+        int mask = 0;
+        return dfs(mask, 1, n, nums);
+    }
+};
