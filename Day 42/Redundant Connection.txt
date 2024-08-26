@@ -1,0 +1,40 @@
+class Solution {
+public:
+    void makeset(int i,vector<int> &p,vector<int> &s){
+        p[i] = i;
+        s[i] = 1;
+    }
+    int find(int &v,vector<int> &p){
+        if(p[v] == v)return v;
+        return p[v] = find(p[v],p);
+    }
+    void union1(int &a,int &b,vector<int> &p,vector<int> &s){
+        int u = find(a,p);
+        int v = find(b,p);
+        if(u!=v){
+            if(s[u]<s[v]){
+                swap(u,v);
+            }
+            p[v] = u;
+            s[v] += s[u];
+        }
+    }
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        int i,n = edges.size(),u,v;
+        vector<int> parent(1+n);
+        vector<int> size(n+1);
+        for(i = 0; i < n; i++){
+            makeset(i,parent,size);
+        }
+        for(auto &i: edges){
+            u = find(i[0],parent);
+            v = find(i[1],parent);
+            if(u==v){
+                return {i[0],i[1]};
+            }else{
+                union1(i[0],i[1],parent,size);
+            }
+        }
+        return {};
+    }
+};
