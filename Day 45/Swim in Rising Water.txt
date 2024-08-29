@@ -1,0 +1,48 @@
+class Solution {
+    int n;
+
+    bool canReach(int row, int col, vector<vector<int>>& grid, int dr[], int dc[], int depth, vector<vector<bool>>& visited) {
+        if (row == n - 1 && col == n - 1)
+            return true;
+
+        visited[row][col] = 1;
+        
+        for (int i = 0; i < 4; i++) {
+            int nr = row + dr[i];
+            int nc = col + dc[i];
+            if (nr >= 0 && nr < n && nc >= 0 && nc < n && !visited[nr][nc] && grid[nr][nc] <= depth) {
+                if (canReach(nr, nc, grid, dr, dc, depth, visited)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+public:
+    int swimInWater(vector<vector<int>>& grid) {
+        int low = 0, high = 0;
+        n = grid.size();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                high = max(high, grid[i][j]);
+            }
+        }
+
+        int dr[4] = {-1, 1, 0, 0};
+        int dc[4] = {0, 0, -1, 1};
+
+        int res = 0;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            vector<vector<bool>> visited(n, vector<bool>(n, 0));
+            if (grid[0][0] <= mid && canReach(0, 0, grid, dr, dc, mid, visited)) {
+                res = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return res;
+    }
+};
